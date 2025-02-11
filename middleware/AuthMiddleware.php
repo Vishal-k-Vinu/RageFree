@@ -3,7 +3,6 @@ require_once 'BaseMiddleware.php';
 
 class AuthMiddleware extends BaseMiddleware {
     public static function isAuthenticated() {
-        session_start();
         return isset($_SESSION['user']);
     }
 
@@ -20,7 +19,7 @@ class AuthMiddleware extends BaseMiddleware {
             if ($this->isAjaxRequest()) {
                 $this->sendJsonResponse(['error' => 'Unauthorized'], 401);
             }
-            $this->redirect('/login');
+            $this->redirect('/phplogin/login');
         }
     }
 
@@ -29,7 +28,7 @@ class AuthMiddleware extends BaseMiddleware {
             if ($this->isAjaxRequest()) {
                 $this->sendJsonResponse(['error' => 'Unauthorized'], 403);
             }
-            $this->redirect('/login');
+            $this->redirect('/phplogin/login');
         }
     }
 
@@ -38,14 +37,14 @@ class AuthMiddleware extends BaseMiddleware {
             if ($this->isAjaxRequest()) {
                 $this->sendJsonResponse(['error' => 'Unauthorized'], 403);
             }
-            $this->redirect('/login');
+            $this->redirect('/phplogin/login');
         }
     }
 
     public function handleGuestOnly() {
         if (self::isAuthenticated()) {
             $role = $_SESSION['user']['roles'];
-            $redirect = $role === 'admin' ? '/admin/dashboard' : '/student/registration';
+            $redirect = $role === 'admin' ? '/phplogin/admin/dashboard' : '/phplogin/student/registration';
             $this->redirect($redirect);
         }
     }

@@ -1,6 +1,6 @@
 <?php $title = 'Sign Up'; ?>
 <div class="wrapper">
-    <form action="/signup" method="POST">
+    <form action="/phplogin/signup" method="POST">
         <h1>Sign up</h1>
         <?php if (isset($error)): ?>
             <div class="error"><?php echo $error; ?></div>
@@ -34,7 +34,7 @@
         </div>
         <button type="submit" class="btn" name="submit">Submit</button>
         <div class="register-link">
-            <p>Already have an account? <a href="/login">Login here</a></p>
+            <p>Already have an account? <a href="/phplogin/login">Login here</a></p>
         </div>
     </form>
 </div> 

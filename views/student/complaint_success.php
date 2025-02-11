@@ -13,7 +13,7 @@ require_once 'views/layouts/main.php';
             <p>Complaint ID: <strong><?php echo htmlspecialchars($_SESSION['last_complaint_id'] ?? ''); ?></strong></p>
         </div>
         <div class="action-buttons">
-            <a href="/student/dashboard" class="btn btn-primary">Go to Dashboard</a>
+            <a href="/phplogin/logout" class="btn btn-primary">Go to Login</a>
             <a href="/complaint/create" class="btn btn-secondary">Submit Another Complaint</a>
         </div>
         <div class="note">

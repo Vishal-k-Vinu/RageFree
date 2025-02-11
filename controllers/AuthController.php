@@ -17,21 +17,26 @@ class AuthController {
             $user = $this->userModel->authenticate($username, $password, $role);
             
             if ($user) {
-                session_start();
                 $_SESSION['user'] = $user;
                 
                 if ($user['roles'] === 'admin') {
-                    header('Location: admin/dashboard');
+                    header('Location: /phplogin/admin/dashboard');
                 } else {
-                    header('Location: student/registration');
+                    header('Location: /phplogin/student/registration');
                 }
                 exit();
             } else {
                 $error = "Invalid credentials";
+                ob_start();
                 include 'views/auth/login.php';
+                $content = ob_get_clean();
+                include 'views/layouts/main.php';
             }
         } else {
+            ob_start();
             include 'views/auth/login.php';
+            $content = ob_get_clean();
+            include 'views/layouts/main.php';
         }
     }
 
@@ -47,21 +52,26 @@ class AuthController {
             ];
 
             if ($this->userModel->register($userData)) {
-                header('Location: login');
+                header('Location: /phplogin/login');
                 exit();
             } else {
                 $error = "Registration failed";
+                ob_start();
                 include 'views/auth/signup.php';
+                $content = ob_get_clean();
+                include 'views/layouts/main.php';
             }
         } else {
+            ob_start();
             include 'views/auth/signup.php';
+            $content = ob_get_clean();
+            include 'views/layouts/main.php';
         }
     }
 
     public function logout() {
-        session_start();
         session_destroy();
-        header('Location: /login');
+        header('Location: /phplogin/login');
         exit();
     }
 } 

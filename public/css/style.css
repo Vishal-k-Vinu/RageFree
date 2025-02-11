@@ -6,7 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 body {
@@ -14,161 +14,109 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: black;
-    background-size: cover;
-    background-position: center;
+    background: #f0f2f5;
 }
 
 /* Wrapper styles */
 .wrapper {
-    width: 420px;
-    background: transparent;
-    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+
+.wrapper form {
+    background: #fff;
+    padding: 30px 35px;
     border-radius: 10px;
-    padding: 30px 40px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 380px;
 }
 
 .wrapper h1 {
     font-size: 36px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    color: #333;
 }
 
 /* Form input styles */
 .input-box {
     position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 30px 0;
+    margin-bottom: 20px;
 }
 
-.input-box input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 40px;
-    font-size: 16px;
-    color: #fff;
-    padding: 20px 45px 20px 20px;
-}
-
-.input-box input::placeholder {
-    color: #fff;
-}
-
-.input-box i {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-}
-
-/* Select box styles */
+.input-box input,
 .input-box select {
     width: 100%;
-    height: 100%;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 40px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     font-size: 16px;
-    color: #fff;
-    padding: 0 20px;
-    cursor: pointer;
-    appearance: none;
+    transition: all 0.3s ease;
 }
 
-.input-box select option {
-    background: #333;
-    color: #fff;
+.input-box input:focus,
+.input-box select:focus {
+    border-color: #4070f4;
+    box-shadow: 0 0 5px rgba(64, 112, 244, 0.2);
+    outline: none;
+}
+
+.input-box label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
 }
 
 /* Button styles */
 .btn {
     width: 100%;
-    height: 45px;
-    background: #fff;
+    padding: 12px;
+    background: #4070f4;
     border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
     font-size: 16px;
-    color: #333;
-    font-weight: 600;
+    font-weight: 500;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .btn:hover {
-    background: #f0f0f0;
-    transform: scale(1.02);
+    background: #2d5bd9;
 }
 
 /* Links and registration styles */
 .register-link {
-    font-size: 14.5px;
-    text-align: center;
     margin-top: 20px;
+    text-align: center;
 }
 
-.register-link p a {
-    color: #fff;
+.register-link p {
+    color: #666;
+}
+
+.register-link a {
+    color: #4070f4;
     text-decoration: none;
-    font-weight: 600;
-    transition: text-decoration 0.3s ease;
-}
-
-.register-link p a:hover {
-    text-decoration: underline;
-}
-
-/* Form container styles */
-.form-container {
-    width: 100%;
-    max-width: 800px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 10px;
-    backdrop-filter: blur(20px);
-    color: #fff;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
     font-weight: 500;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #fff;
-    font-size: 16px;
+.register-link a:hover {
+    text-decoration: underline;
 }
 
 /* Error styles */
 .error {
-    color: #ff4444;
-    background: rgba(255, 68, 68, 0.1);
+    background: #ffe6e6;
+    color: #dc3545;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 15px;
-    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 /* Success message styles */

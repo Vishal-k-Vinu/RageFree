@@ -1,6 +1,9 @@
-<?php $title = 'Login'; ?>
+<?php 
+$title = 'Login'; 
+ob_start(); 
+?>
 <div class="wrapper">
-    <form action="/login" method="POST">
+    <form action="/phplogin/login" method="POST">
         <h1>Login</h1>
         <?php if (isset($error)): ?>
             <div class="error"><?php echo $error; ?></div>
@@ -20,7 +23,12 @@
         </div>
         <button type="submit" class="btn" name="submit">Login</button>
         <div class="register-link">
-            <p>Don't have an account? <a href="/signup">Sign up</a></p>
+            <p>Don't have an account? <a href="/phplogin/signup">Sign up</a></p>
         </div>
     </form>
-</div> 
+</div>
+
+<?php 
+$content = ob_get_clean();
+require_once 'views/layouts/main.php';
+?> 

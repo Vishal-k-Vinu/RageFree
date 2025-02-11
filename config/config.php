@@ -4,8 +4,9 @@ return [
     'app' => [
         'name' => 'RageFree',
         'debug' => true,
-        'base_url' => 'http://localhost/Final',
+        'base_url' => 'http://localhost/phplogin',
     ],
+
     'database' => [
         'host' => 'localhost',
         'username' => 'root',
