@@ -1,5 +1,6 @@
 <?php
 require_once 'models/User.php';
+require_once 'utils/Validator.php';
 
 class AuthController {
     private $userModel;
@@ -42,6 +43,31 @@ class AuthController {
 
     public function signup() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $validator = new Validator($_POST);
+            
+            // Validate all fields
+            $validator->required('fname', 'First name is required')
+                     ->required('lname', 'Last name is required')
+                     ->required('uname', 'Username is required')
+                     ->minLength('uname', 5, 'Username must be at least 5 characters')
+                     ->pattern('uname', '/^[a-zA-Z0-9_]+$/', 'Username can only contain letters, numbers, and underscores')
+                     ->required('email', 'Email is required')
+                     ->email('email', 'Please enter a valid email address')
+                     ->required('pass', 'Password is required')
+                     ->minLength('pass', 8, 'Password must be at least 8 characters')
+                     ->pattern('pass', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/', 
+                              'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character')
+                     ->required('roles', 'Role is required');
+
+            if ($validator->hasErrors()) {
+                $errors = $validator->getErrors();
+                ob_start();
+                include 'views/auth/signup.php';
+                $content = ob_get_clean();
+                include 'views/layouts/main.php';
+                return;
+            }
+
             $userData = [
                 'firstname' => $_POST['fname'],
                 'lastname' => $_POST['lname'],
