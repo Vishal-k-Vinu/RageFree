@@ -2,13 +2,14 @@
 require_once 'config/database.php';
 require_once 'utils/Encryption.php';
 
-class User{
+class User {
     private $conn;
     private $encryption;
+    private $database;
 
     public function __construct() {
-        $database = new Database();
-        $this->conn = $database->getConnection();
+        $this->database = new Database();
+        $this->conn = $this->database->getConnection();
         $this->encryption = new Encryption();
     }
 
@@ -32,22 +33,41 @@ class User{
     }
 
     public function register($data) {
-        $encrypted_username = $this->encryption->encrypt($data['username']);
-        $encrypted_password = $this->encryption->encrypt($data['password']);
-        
-        $query = "INSERT INTO datas (fname, lname, uname, email, pass, roles) 
-                 VALUES (?, ?, ?, ?, ?, ?)";
-        
-        $stmt = mysqli_prepare($this->conn, $query);
-        mysqli_stmt_bind_param($stmt, "ssssss", 
-            $data['firstname'],
-            $data['lastname'],
-            $encrypted_username,
-            $data['email'],
-            $encrypted_password,
-            $data['role']
-        );
+        try {
+            $encrypted_username = $this->encryption->encrypt($data['username']);
+            $encrypted_password = $this->encryption->encrypt($data['password']);
+            
+            $query = "INSERT INTO datas (fname, lname, uname, email, pass, roles) 
+                     VALUES (?, ?, ?, ?, ?, ?)";
+            
+            $stmt = mysqli_prepare($this->conn, $query);
+            
+            if ($stmt === false) {
+                error_log("Prepare failed: " . mysqli_error($this->conn));
+                return false;
+            }
 
-        return mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_param($stmt, "ssssss", 
+                $data['firstname'],
+                $data['lastname'],
+                $encrypted_username,
+                $data['email'],
+                $encrypted_password,
+                $data['role']
+            );
+
+            $result = mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+            return $result;
+
+        } catch (Exception $e) {
+            error_log("Error in User::register: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Add destructor to prevent premature connection closing
+    public function __destruct() {
+        // Connection will be closed by Database class destructor
     }
 }

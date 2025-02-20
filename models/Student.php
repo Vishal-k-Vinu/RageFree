@@ -3,14 +3,15 @@ require_once 'config/database.php';
 
 class Student {
     private $conn;
+    private $database;
 
     public function __construct() {
-        $database = new Database();
-        $this->conn = $database->getConnection();
+        $this->database = new Database();
+        $this->conn = $this->database->getConnection();
         
-        // Check connection
         if (!$this->conn) {
             error_log("Database connection failed");
+            throw new Exception("Database connection failed");
         }
     }
 
@@ -103,4 +104,7 @@ class Student {
             return false;
         }
     }
+
+    // Remove destructor to prevent premature connection closing
+    // Connection will be closed by Database class destructor
 } 

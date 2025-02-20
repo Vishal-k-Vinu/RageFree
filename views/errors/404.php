@@ -1,3 +1,4 @@
+
 <?php $title = '404 Not Found'; ?>
 <div class="error-container">
     <h1>404</h1>

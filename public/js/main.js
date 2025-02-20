@@ -1,3 +1,4 @@
+
 // Form validation and AJAX handling
 document.addEventListener('DOMContentLoaded', function() {
     // Complaint ID generation

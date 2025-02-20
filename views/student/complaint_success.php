@@ -1,3 +1,4 @@
+
 <?php 
 $title = 'Complaint Received';
 require_once 'views/layouts/main.php';

@@ -1,3 +1,4 @@
+
 # Allow access to files in public directory
 <IfModule mod_authz_core.c>
     Require all granted

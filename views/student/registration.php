@@ -1,3 +1,4 @@
+
 <?php 
 $title = 'Student Registration'; 
 ob_start();

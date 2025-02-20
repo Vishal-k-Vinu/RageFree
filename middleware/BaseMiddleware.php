@@ -1,3 +1,4 @@
+
 <?php
 abstract class BaseMiddleware {
     protected function redirect($url) {

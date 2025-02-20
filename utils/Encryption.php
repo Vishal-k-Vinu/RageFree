@@ -1,3 +1,4 @@
+
 <?php
 class Encryption {
     private $key = "YourSecretKey123456";

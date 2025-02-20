@@ -51,6 +51,7 @@ try {
     $routes = [
         'login' => ['AuthController', 'login'],
         'signup' => ['AuthController', 'signup'],
+        'signup-submit' => ['AuthController', 'handleSignup'],
         'logout' => ['AuthController', 'logout'],
         'admin/dashboard' => ['AdminController', 'dashboard'],
         'student/registration' => ['StudentController', 'registration'],

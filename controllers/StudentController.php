@@ -43,12 +43,12 @@ class StudentController {
 
             // Update the data array to match form field names
             $studentData = [
-                'name' => $_POST['namee'],   // Match the form field name
+                'name' => $_POST['namee'],
                 'phone' => $_POST['phone'],
                 'gender' => $_POST['gender'],
                 'dob' => $_POST['dob'],
                 'department' => $_POST['department'],
-                'year' => $_POST['yearr'],   // Match the form field name
+                'year' => $_POST['yearr'],
                 'ktuid' => $_POST['ktuid']
             ];
 
@@ -57,14 +57,9 @@ class StudentController {
 
             if ($this->studentModel->register($studentData)) {
                 error_log("Registration successful");
-                $success = true;
-                ob_start();
-                include 'views/student/registration.php';
-                $content = ob_get_clean();
-                include 'views/layouts/main.php';
-                
-                // Redirect after a short delay
-                header("Refresh: 2; URL=/phplogin/complaint/create");
+                // Immediately redirect to complaint creation page
+                header('Location: /phplogin/complaint/create');
+                exit();
             } else {
                 error_log("Registration failed");
                 $error = "Registration failed. Please try again.";

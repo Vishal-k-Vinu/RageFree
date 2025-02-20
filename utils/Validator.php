@@ -1,3 +1,4 @@
+
 <?php
 class Validator {
     private $errors = [];
