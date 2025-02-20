@@ -1,13 +1,16 @@
 <?php
 require_once 'config/database.php';
+require_once 'utils/Encryption.php';
 
 class Complaint {
     private $conn;
     private $database;
+    private $encryption;
 
     public function __construct() {
         $this->database = new Database();
         $this->conn = $this->database->getConnection();
+        $this->encryption = new Encryption();
         
         if (!$this->conn) {
             error_log("Database connection failed in Complaint model");
@@ -18,6 +21,10 @@ class Complaint {
     public function create($data) {
         try {
             error_log("Attempting to create complaint with data: " . print_r($data, true));
+            
+            // Encrypt sensitive data
+            $encrypted_name = $this->encryption->encrypt($data['stuname']);
+            $encrypted_description = $this->encryption->encrypt($data['descriptionn']);
             
             $query = "INSERT INTO complaint (complaintid, stuname, incdate, placeofinc, descriptionn) 
                      VALUES (?, ?, ?, ?, ?)";
@@ -31,10 +38,10 @@ class Complaint {
 
             mysqli_stmt_bind_param($stmt, "sssss", 
                 $data['complaintid'],
-                $data['stuname'],
+                $encrypted_name,
                 $data['incdate'],
                 $data['placeofinc'],
-                $data['descriptionn']
+                $encrypted_description
             );
 
             $success = mysqli_stmt_execute($stmt);
@@ -61,6 +68,9 @@ class Complaint {
 
             if ($result) {
                 while ($row = mysqli_fetch_assoc($result)) {
+                    // Decrypt sensitive data
+                    $row['stuname'] = $this->encryption->decrypt($row['stuname']);
+                    $row['descriptionn'] = $this->encryption->decrypt($row['descriptionn']);
                     $complaints[] = $row;
                 }
                 mysqli_free_result($result);
@@ -87,6 +97,13 @@ class Complaint {
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $complaint = mysqli_fetch_assoc($result);
+            
+            if ($complaint) {
+                // Decrypt sensitive data
+                $complaint['stuname'] = $this->encryption->decrypt($complaint['stuname']);
+                $complaint['descriptionn'] = $this->encryption->decrypt($complaint['descriptionn']);
+            }
+            
             mysqli_stmt_close($stmt);
             return $complaint;
         } catch (Exception $e) {
