@@ -62,9 +62,9 @@ class AuthController {
             if ($validator->hasErrors()) {
                 $errors = $validator->getErrors();
                 ob_start();
-                include 'views/auth/signup.php';
+                include_once 'views/auth/signup.php';
                 $content = ob_get_clean();
-                include 'views/layouts/main.php';
+                include_once 'views/layouts/main.php';
                 return;
             }
 

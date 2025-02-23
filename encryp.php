@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
 <head>
     <title>AES-256 Encryption in PHP</title>
 </head>
