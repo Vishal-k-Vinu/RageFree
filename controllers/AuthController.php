@@ -4,7 +4,7 @@ require_once 'utils/Validator.php';
 
 class AuthController {
     private $userModel;
-
+    private const SIGNUP_VIEW = 'views/auth/signup.php';
     public function __construct() {
         $this->userModel = new User();
     }
@@ -55,14 +55,12 @@ class AuthController {
                      ->email('email', 'Please enter a valid email address')
                      ->required('pass', 'Password is required')
                      ->minLength('pass', 8, 'Password must be at least 8 characters')
-                     ->pattern('pass', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/', 
-                              'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character')
+                     ->pattern('pass', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/','Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character')
                      ->required('roles', 'Role is required');
 
             if ($validator->hasErrors()) {
-                $errors = $validator->getErrors();
                 ob_start();
-                include_once 'views/auth/signup.php';
+                include self::SIGNUP_VIEW;
                 $content = ob_get_clean();
                 include_once 'views/layouts/main.php';
                 return;
@@ -84,13 +82,13 @@ class AuthController {
             } else {
                 $error = "Registration failed";
                 ob_start();
-                include 'views/auth/signup.php';
+                include self::SIGNUP_VIEW;
                 $content = ob_get_clean();
                 include 'views/layouts/main.php';
             }
         } else {
             ob_start();
-            include 'views/auth/signup.php';
+            include self::SIGNUP_VIEW;
             $content = ob_get_clean();
             include 'views/layouts/main.php';
         }

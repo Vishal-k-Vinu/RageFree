@@ -16,8 +16,6 @@ class StudentController {
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Debug log
-            error_log("POST data received: " . print_r($_POST, true));
 
             // Validate input
             $errors = [];
@@ -33,7 +31,6 @@ class StudentController {
 
             if (!empty($errors)) {
                 $error = implode("<br>", $errors);
-                error_log("Validation errors: " . $error);
                 ob_start();
                 include 'views/student/registration.php';
                 $content = ob_get_clean();
@@ -52,16 +49,11 @@ class StudentController {
                 'ktuid' => $_POST['ktuid']
             ];
 
-            // Debug log
-            error_log("Attempting to register with data: " . print_r($studentData, true));
-
             if ($this->studentModel->register($studentData)) {
-                error_log("Registration successful");
                 // Immediately redirect to complaint creation page
                 header('Location: /phplogin/complaint/create');
                 exit();
             } else {
-                error_log("Registration failed");
                 $error = "Registration failed. Please try again.";
                 ob_start();
                 include 'views/student/registration.php';
@@ -75,4 +67,5 @@ class StudentController {
             include 'views/layouts/main.php';
         }
     }
-} 
+}
+?>

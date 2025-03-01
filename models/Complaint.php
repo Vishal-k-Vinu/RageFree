@@ -20,8 +20,6 @@ class Complaint {
 
     public function create($data) {
         try {
-            error_log("Attempting to create complaint with data: " . print_r($data, true));
-            
             // Encrypt sensitive data
             $encrypted_name = $this->encryption->encrypt($data['stuname']);
             $encrypted_description = $this->encryption->encrypt($data['descriptionn']);
@@ -127,4 +125,5 @@ class Complaint {
 
     // Remove destructor to prevent premature connection closing
     // Connection will be closed by Database class destructor
-} 
+}
+?>

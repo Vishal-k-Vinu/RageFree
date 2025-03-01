@@ -9,9 +9,6 @@ class ComplaintController {
     }
 
     public function create() {
-        error_log("ComplaintController::create called");
-        error_log("POST data: " . print_r($_POST, true));
-
         // Check if user is logged in and is a student
         if (!isset($_SESSION['user']) || $_SESSION['user']['roles'] !== 'users') {
             header('Location: /phplogin/login');
@@ -82,4 +79,5 @@ class ComplaintController {
             exit();
         }
     }
-} 
+}
+?>

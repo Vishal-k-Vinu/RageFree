@@ -1,6 +1,10 @@
 <?php
+class DatabaseConnectionException extends Exception {
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
+}
 class Database {
-    private static $instance = null;
     private $host = "localhost";
     private $username = "root";
     private $password = "";  // default XAMPP password is empty
@@ -28,7 +32,7 @@ class Database {
             error_log("Stack trace: " . $e->getTraceAsString());
             
             // Rethrow the exception with a more user-friendly message
-            throw new Exception("Unable to connect to database. Please try again later.");
+            throw new DatabaseConnectionException("Unable to connect to the database. Please try again later.", 0, $e);
         }
     }
 

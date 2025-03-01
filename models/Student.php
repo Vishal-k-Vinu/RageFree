@@ -17,9 +17,6 @@ class Student {
 
     public function register($data) {
         try {
-            // Debug log
-            error_log("Starting student registration with data: " . print_r($data, true));
-
             // Check if table exists
             $result = mysqli_query($this->conn, "SHOW TABLES LIKE 'student'");
             if (!$result || mysqli_num_rows($result) == 0) {
@@ -34,7 +31,6 @@ class Student {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $columns[] = $row['Field'];
                 }
-                error_log("Table columns: " . print_r($columns, true));
             }
 
             $query = "INSERT INTO student (namee, phone, gender, dob, department, yearr, ktuid) 
@@ -47,9 +43,6 @@ class Student {
                 return false;
             }
 
-            // Debug log
-            error_log("Query prepared successfully");
-
             mysqli_stmt_bind_param($stmt, "sssssss", 
                 $data['name'],
                 $data['phone'],
@@ -60,17 +53,10 @@ class Student {
                 $data['ktuid']
             );
 
-            // Debug log
-            error_log("Parameters bound successfully");
-
             $success = mysqli_stmt_execute($stmt);
             
             if (!$success) {
                 error_log("Execute failed: " . mysqli_stmt_error($stmt));
-                error_log("MySQL Error: " . mysqli_error($this->conn));
-                error_log("MySQL Error Number: " . mysqli_errno($this->conn));
-            } else {
-                error_log("Student registration successful. Insert ID: " . mysqli_insert_id($this->conn));
             }
 
             mysqli_stmt_close($stmt);
@@ -105,6 +91,6 @@ class Student {
         }
     }
 
-    // Remove destructor to prevent premature connection closing
-    // Connection will be closed by Database class destructor
-} 
+    
+}
+?>
