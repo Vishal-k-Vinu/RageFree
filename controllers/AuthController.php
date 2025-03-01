@@ -29,15 +29,15 @@ class AuthController {
             } else {
                 $error = "Invalid credentials";
                 ob_start();
-                include 'views/auth/login.php';
+                include_once 'views/auth/login.php';
                 $content = ob_get_clean();
-                include 'views/layouts/main.php';
+                include_once 'views/layouts/main.php';
             }
         } else {
             ob_start();
-            include 'views/auth/login.php';
+            include_once 'views/auth/login.php';
             $content = ob_get_clean();
-            include 'views/layouts/main.php';
+            include_once 'views/layouts/main.php';
         }
     }
 
@@ -60,7 +60,7 @@ class AuthController {
 
             if ($validator->hasErrors()) {
                 ob_start();
-                include self::SIGNUP_VIEW;
+                include_once self::SIGNUP_VIEW;
                 $content = ob_get_clean();
                 include_once 'views/layouts/main.php';
                 return;
@@ -82,15 +82,15 @@ class AuthController {
             } else {
                 $error = "Registration failed";
                 ob_start();
-                include self::SIGNUP_VIEW;
+                include_once self::SIGNUP_VIEW;
                 $content = ob_get_clean();
-                include 'views/layouts/main.php';
+                include_once 'views/layouts/main.php';
             }
         } else {
             ob_start();
-            include self::SIGNUP_VIEW;
+            include_once self::SIGNUP_VIEW;
             $content = ob_get_clean();
-            include 'views/layouts/main.php';
+            include_once 'views/layouts/main.php';
         }
     }
 
@@ -125,4 +125,5 @@ class AuthController {
         header('Location: /phplogin/login');
         exit();
     }
-} 
+}
+?>
